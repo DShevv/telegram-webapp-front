@@ -1,5 +1,6 @@
 import { styled } from "styled-components";
 import Button from "../Button/Button";
+import { useTelegram } from "../../hooks/useTelegram";
 
 const StyledHeader = styled.div`
   width: 100%;
@@ -16,16 +17,12 @@ const UserName = styled.span`
 `;
 
 export default function Header() {
-  const tg = window.Telegram.WebApp;
-
-  const onClose = () => {
-    tg.close();
-  };
+  const { user, onClose } = useTelegram();
 
   return (
     <StyledHeader>
       <Button onClick={onClose}>Close</Button>
-      <UserName>{tg.initDataUnsafe?.user?.username}</UserName>
+      <UserName>{user?.username}</UserName>
     </StyledHeader>
   );
 }
