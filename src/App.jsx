@@ -2,6 +2,10 @@ import { useEffect } from "react";
 import styled from "styled-components";
 import Header from "./components/Header/Header";
 import { useTelegram } from "./hooks/useTelegram";
+import { Routes, Route } from "react-router-dom";
+import ProductList from "./components/ProductList/ProductList";
+import Cart from "./components/Cart/Cart";
+import Provider from "./utils/context";
 
 const Container = styled.div`
   width: 100%;
@@ -9,17 +13,22 @@ const Container = styled.div`
 `;
 
 function App() {
-  const { tg, onToggleButton } = useTelegram();
+  const { tg } = useTelegram();
 
   useEffect(() => {
     tg.ready();
   }, []);
 
   return (
-    <Container>
-      <Header />
-      <button onClick={onToggleButton}>toggle</button>
-    </Container>
+    <Provider>
+      <Container>
+        <Header />
+        <Routes>
+          <Route index element={<ProductList />} />
+          <Route path="cart" element={<Cart />} />
+        </Routes>
+      </Container>
+    </Provider>
   );
 }
 
