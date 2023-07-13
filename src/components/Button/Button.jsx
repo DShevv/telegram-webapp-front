@@ -2,6 +2,7 @@ import { styled } from "styled-components";
 
 const StyledButton = styled.button`
   padding: 10px 15px;
+  width: 100px;
   background: var(--tg-theme-button-color);
   color: var(--tg-theme-button-text-color);
   border: none;

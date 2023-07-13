@@ -2,7 +2,9 @@ import { styled } from "styled-components";
 import Button from "../Button/Button";
 
 const StyledHeader = styled.button`
+  width: 100%;
   display: flex;
+  background: var(--tg-theme-bg-color);
   justify-content: space-between;
   padding: 5px 15px;
 `;
