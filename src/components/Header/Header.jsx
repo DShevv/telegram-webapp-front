@@ -1,7 +1,7 @@
 import { styled } from "styled-components";
 import Button from "../Button/Button";
 
-const StyledHeader = styled.button`
+const StyledHeader = styled.div`
   width: 100%;
   display: flex;
   background: var(--tg-theme-bg-color);
