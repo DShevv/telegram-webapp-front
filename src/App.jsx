@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import styled from "styled-components";
+import Header from "./components/Header/Header";
 
 const tg = window.Telegram.WebApp;
 
@@ -13,7 +14,12 @@ function App() {
     tg.ready();
   }, []);
 
-  return <Container>hello </Container>;
+  return (
+    <Container>
+      <Header />
+      hello{" "}
+    </Container>
+  );
 }
 
 export default App;
