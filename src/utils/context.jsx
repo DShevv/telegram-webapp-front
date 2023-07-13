@@ -51,6 +51,10 @@ function Provider(props) {
     return cartItems.find((elem) => elem.id === id) ? true : false;
   };
 
+  const getCount = (id) => {
+    return cartItems.find((elem) => elem.id === id)?.count;
+  };
+
   useEffect(() => {
     if (!isEmpty()) {
       tg.MainButton.show();
@@ -68,6 +72,7 @@ function Provider(props) {
         isEmpty,
         clearCart,
         isInCart,
+        getCount,
       }}
     >
       {props?.children}

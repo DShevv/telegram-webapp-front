@@ -9,6 +9,23 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  position: relative;
+`;
+
+const CountLabel = styled.div`
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+  height: 20px;
+  top: 0;
+  left: 100%;
+  transform: translateX(-100%);
+
+  border-radius: 50%;
+  background: #ffbb00;
+  color: white;
 `;
 
 const Image = styled.img`
@@ -20,7 +37,8 @@ const Image = styled.img`
 `;
 
 export default function Item({ data }) {
-  const { addItem, removeItem, isInCart } = useContext(Context);
+  const { addItem, removeItem, isInCart, getCount } = useContext(Context);
+  const count = getCount(data.id);
 
   function onAdd() {
     addItem(data);
@@ -32,6 +50,7 @@ export default function Item({ data }) {
 
   return (
     <Container>
+      {count ? <CountLabel>{count}</CountLabel> : ""}
       <Image src={burger} />
       <span>
         {data.title} <strong>{data.price}</strong>
