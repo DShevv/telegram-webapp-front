@@ -69,12 +69,12 @@ export default function Cart() {
   const navigate = useNavigate();
 
   const toProductList = () => {
-    navigate("/products");
+    navigate("/");
   };
 
   useEffect(() => {
     tg.MainButton.setParams({
-      text: `PAY order $${getCartPrice()}`,
+      text: `PAY $${getCartPrice()}`,
       color: "#48c058",
     });
   }, []);
