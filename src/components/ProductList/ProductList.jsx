@@ -1,5 +1,8 @@
 import { styled } from "styled-components";
+import { useCallback, useEffect } from "react";
 import Item from "../Item/Item";
+import { useNavigate } from "react-router-dom";
+import { useTelegram } from "../../hooks/useTelegram";
 
 const Container = styled.div`
   width: 100%;
@@ -58,6 +61,25 @@ const data = [
 ];
 
 export default function ProductList() {
+  const { tg } = useTelegram();
+  const navigate = useNavigate();
+
+  const toCart = useCallback(() => {
+    navigate("/cart");
+  }, []);
+
+  useEffect(() => {
+    tg.MainButton.setParams({
+      text: "View order",
+    });
+
+    tg.onEvent("mainButtonClicked", toCart);
+
+    return () => {
+      tg.offEvent("mainButtonClicked", toCart);
+    };
+  }, []);
+
   return (
     <Container>
       {data.map((elem) => {

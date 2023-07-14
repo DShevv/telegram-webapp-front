@@ -1,13 +1,11 @@
-import { createContext, useCallback, useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { useTelegram } from "../hooks/useTelegram";
-import { useNavigate } from "react-router-dom";
 
 export const Context = createContext(null);
 
 function Provider(props) {
   const [cartItems, setCartItems] = useState([]);
   const { tg } = useTelegram();
-  const navigate = useNavigate();
 
   const addItem = (item) => {
     if (isInCart(item.id)) {
@@ -57,21 +55,9 @@ function Provider(props) {
     return cartItems.find((elem) => elem.id === id)?.count;
   };
 
-  const toCart = useCallback(() => {
-    navigate("/cart");
-  }, []);
-
-  useEffect(() => {
-    tg.MainButton.setParams({
-      text: "View order",
-    });
-
-    tg.onEvent("mainButtonClicked", toCart);
-
-    return () => {
-      tg.offEvent("mainButtonClicked", toCart);
-    };
-  }, []);
+  const getCartPrice = () => {
+    return cartItems.reduce((acc, elem) => acc + elem.price * elem.count, 0);
+  };
 
   useEffect(() => {
     if (!isEmpty()) {
@@ -91,6 +77,7 @@ function Provider(props) {
         clearCart,
         isInCart,
         getCount,
+        getCartPrice,
       }}
     >
       {props?.children}
